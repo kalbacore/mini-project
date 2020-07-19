@@ -14,6 +14,7 @@ class RoleSeeder extends Seeder
     public function run()
     {
         $abilities = [
+            ['name' => 'view users'],
             ['name' => 'read messages'],
             ['name' => 'create messages'],
             ['name' => 'delete messages'],

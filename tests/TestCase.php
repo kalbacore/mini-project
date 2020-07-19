@@ -20,4 +20,21 @@ abstract class TestCase extends BaseTestCase
             return '';
         });
     }
+
+    protected function createUserWithRoleAndAbility(array $ability, array $role, array $user = [])
+    {
+        // create the abilities
+        factory(\App\Ability::class)->create($ability);
+
+        // then the role
+        factory(\App\Role::class)->create($role)->isAllowedTo($ability['name']);
+
+        // then the user
+        $user = factory(\App\User::class)->create();
+
+        // assign the role
+        $user->assignRole($role['name']);
+
+        return $user;
+    }
 }
