@@ -12,7 +12,7 @@ class Role extends Model
      *
      * @var array
      */
-    protected $guarded = [];
+    protected $guarded = ['id'];
 
     /**
      * A role may have many abilities.

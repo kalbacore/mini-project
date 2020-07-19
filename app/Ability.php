@@ -12,7 +12,7 @@ class Ability extends Model
      *
      * @var array
      */
-    protected $guarded = [];
+    protected $guarded = ['id'];
 
     /**
      * An ability may belong to many roles.

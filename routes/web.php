@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::view('/', 'welcome')->name('home');
+Route::view('/messages', 'test')->name('messages');
 
 Route::middleware('guest')->group(function () {
     Route::view('login', 'auth.login')->name('login');
@@ -31,3 +32,10 @@ Route::middleware('auth')->group(function () {
 
     Route::view('password/confirm', 'auth.passwords.confirm')->name('password.confirm');
 });
+
+Route::view('users', 'users.table')->name('users');
+Route::view('messages', 'messages.table')->name('messages');
+
+Route::get('user/{user}', function (App\User $user) {
+    return view('users.profile', ['user' => $user]);
+})->name('user');
