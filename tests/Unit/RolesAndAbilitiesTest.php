@@ -56,4 +56,37 @@ class RolesAndAbilitiesTest extends TestCase
 
         $this->assertSame($this->user->roles()->count(), 2);
     }
+
+    /** @test */
+    public function it_can_fetch_all_abilities()
+    {
+        $secondRole = factory(Role::class)->create();
+
+        $secondRole->isAllowedTo(
+            $ability = factory(Ability::class)->create()->name
+        );
+
+        $this->role->isAllowedTo(
+            $secondAbility = factory(Ability::class)->create()->name
+        );
+
+        $this->user->assignRoles([
+            $this->role->name,
+            $secondRole->name,
+        ]);
+
+        $this->assertSame($this->user->abilities()->count(), 2);
+    }
+
+    /** @test */
+    public function a_role_can_assign_a_user_as_a_master_admin()
+    {
+        $masterRole = factory(Role::class)->create(['master_admin' => true]);
+
+        $this->assertFalse($this->user->isMasterAdmin());
+
+        $this->user->assignRole($masterRole->name);
+
+        $this->assertTrue($this->user->fresh()->isMasterAdmin());
+    }
 }

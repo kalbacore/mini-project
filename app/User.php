@@ -2,10 +2,10 @@
 
 namespace App;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Collection;
 
 class User extends Authenticatable
 {
@@ -64,5 +64,21 @@ class User extends Authenticatable
         foreach ($roles as $role) {
             $this->assignRole($role);
         }
+    }
+
+    /**
+     * Get all abilities the usee has.
+     */
+    public function abilities(): Collection
+    {
+        return $this->roles->map->abilities->flatten()->pluck('name')->unique();
+    }
+
+    /**
+     * Check if the user has a super admin role.
+     */
+    public function isMasterAdmin(): bool
+    {
+        return (bool) $this->roles->where('master_admin', true)->first();
     }
 }
