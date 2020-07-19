@@ -1,5 +1,4 @@
-@extends('layouts.auth')
-@section('title', 'Verify your email address')
+@extends('layouts.app')
 
 @section('content')
     <div>
