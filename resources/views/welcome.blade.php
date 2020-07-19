@@ -1,6 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
+    @auth
+        <livewire:my-messages />
+    @endauth
+
+    @guest
     <div class="flex flex-col justify-center py-12 sm:px-6 lg:px-8">
         <div class="flex items-center justify-center">
             <div class="flex flex-col justify-around">
@@ -31,4 +36,5 @@
             </div>
         </div>
     </div>
+    @endguest
 @endsection

@@ -81,4 +81,9 @@ class User extends Authenticatable
     {
         return (bool) $this->roles->where('master_admin', true)->first();
     }
+
+    public function events(): int
+    {
+        return Message::where('user_id', $this->id)->whereNull('seen')->count();
+    }
 }
